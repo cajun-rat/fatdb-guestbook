@@ -20,17 +20,9 @@ namespace FatDBGuestBook.Controllers
 
         public ActionResult Index()
         {
+            _fatDbConnection.CreateBasicClient<GuestBookEntry>();
             var factory = new FatDBQueryableFactory(_fatDbConnection);
-            IEnumerable<GuestBookEntry> entries;
-            try
-            {
-                entries = factory.Queryable<GuestBookEntry>().ToList();
-            }
-            catch (NullReferenceException)
-            {
-                /* If the database hasn't been created factory.Queryable throws a NPE */
-                entries = Enumerable.Empty<GuestBookEntry>();
-            }
+            var entries = factory.Queryable<GuestBookEntry>().ToList();
             var model = new GuestBookEntries {Entries = entries};
             return View(model);
         }
