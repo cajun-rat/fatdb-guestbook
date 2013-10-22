@@ -1,0 +1,18 @@
+﻿@model FatDBGuestBook.Models.GuestBookEntries
+
+@{
+    ViewBag.Title = "Guest Book";
+}
+
+<h1>@ViewBag.Title</h1>
+@foreach (var o in Model.Entries)  {
+    <div class="guestbook-entry">@o.Comment</div>
+}
+
+<h3>Add a Comment</h3>
+<form action="Home/AddComment" method="POST">
+    <textarea name="comment" class="editor-field"></textarea><br/>
+    <input class="editor-field" type="submit" value="Comment"/>
+</form>
+
+
